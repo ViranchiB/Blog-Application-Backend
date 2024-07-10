@@ -2,17 +2,17 @@ package com.blog.Service;
 
 import java.util.List;
 
-import com.blog.entities.Category;
+import com.blog.Payload.CategoryDto;
 
 public interface CategoryService {
 
-	Category createCategory(Category category);
+	CategoryDto createCategory(CategoryDto categoryDto);
 	
-	Category getCategoryById(int categoryId);
+	CategoryDto getCategoryById(int categoryId);
 	
-	Category updateCategory(Category category, int categoryId);
+	CategoryDto updateCategory(CategoryDto categoryDto, int categoryId);
 	
-	List<Category> listOfCategory();
+	List<CategoryDto> listOfCategory();
 	
 	void deleteCategory(int categoryId);
 }

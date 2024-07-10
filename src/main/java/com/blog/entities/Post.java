@@ -31,11 +31,11 @@ public class Post {
 	private String imageName;
 	private Date addedDate;
 	
-	@JsonIgnore
+
 	@ManyToOne
 	private User user;
 	
-	@JsonIgnore
+	
 	@ManyToOne
 	@JoinColumn(name = "category_id")
 	private Category category;

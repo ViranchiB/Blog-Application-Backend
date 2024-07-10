@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.blog.Payload.APIResponse;
+import com.blog.Payload.UserDto;
 import com.blog.Service.UserService;
 import com.blog.entities.User;
 import com.blog.repository.UserRepo;
@@ -33,25 +34,25 @@ public class UserController {
 	private UserService userService;
 	
 	@PostMapping("/")
-	public ResponseEntity<User> createUser(@Valid @RequestBody User user){
+	public ResponseEntity<UserDto> createUser(@Valid @RequestBody UserDto userDto){
 		
 		// create a new user
-		User createdUser = userService.createUser(user);
+		UserDto createdUser = userService.createUser(userDto);
 		
 		// return the newly created user and the response of the API
-		return new ResponseEntity<User>(createdUser, HttpStatus.CREATED);
+		return new ResponseEntity<UserDto>(createdUser, HttpStatus.CREATED);
 	}
 	
 	@GetMapping("/{userId}")
-	public ResponseEntity<User> getUserById(@PathVariable Integer userId){
+	public ResponseEntity<UserDto> getUserById(@PathVariable Integer userId){
 		
-		return new ResponseEntity<User>(userService.getUserById(userId), HttpStatus.FOUND);
+		return new ResponseEntity<UserDto>(userService.getUserById(userId), HttpStatus.FOUND);
 //		return ResponseEntity.ok(userService.getUserById(userId));
 	}
 	
 	@GetMapping("/")
-	public ResponseEntity<List<User>> listOfUsers() {
-		return new ResponseEntity<List<User>>(userService.getAllUsers(), HttpStatus.OK);
+	public ResponseEntity<List<UserDto>> listOfUsers() {
+		return new ResponseEntity<List<UserDto>>(userService.getAllUsers(), HttpStatus.OK);
 	}
 	
 	@DeleteMapping("/{userId}")
@@ -61,8 +62,8 @@ public class UserController {
 	}
 	
 	@PutMapping("/{userId}")
-	public ResponseEntity<User> updateUser(@Valid @RequestBody User user, @PathVariable Integer userId){
-		User updateUser = userService.updateUser(user, userId);
+	public ResponseEntity<UserDto> updateUser(@Valid @RequestBody UserDto userDto, @PathVariable Integer userId){
+		UserDto updateUser = userService.updateUser(userDto, userId);
 		
 		return ResponseEntity.ok(updateUser);
 	}

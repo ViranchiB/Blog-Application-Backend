@@ -2,6 +2,7 @@ package com.blog.Service.Impl;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
@@ -9,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.blog.Exception.ResourceNotFoundException;
+import com.blog.Payload.CommentDto;
 import com.blog.Payload.PostDto;
 import com.blog.Service.PostService;
 import com.blog.entities.Category;
@@ -39,7 +41,6 @@ public class PostImpl implements PostService{
 		// 1. Find user by id
 		User user = userRepo.findById(userId).orElseThrow(()-> new ResourceNotFoundException("User not found along with the ID ", userId));
 		
-		
 		// 2. Finding category by ID
 		Category category = categoryRepository.findById(categoryId).orElseThrow(()-> new ResourceNotFoundException("Category not found along with the ID ", userId));
 		
@@ -68,7 +69,9 @@ public class PostImpl implements PostService{
 		Post postById = postRepository.findById(postId).orElseThrow(()-> new ResourceNotFoundException("Post not found along with the ID ", postId));
 		
 		// 2. Convert Entity to DTO and return		
-		return this.postTOpostDto(postById);
+//		return this.postTOpostDto(postById);
+		
+		return this.modelMapper.map(postById, PostDto.class);
 	}
 
 	@Override
@@ -163,6 +166,13 @@ public class PostImpl implements PostService{
 	public PostDto postTOpostDto(Post post) {
 		
 		PostDto postDto = this.modelMapper.map(post, PostDto.class);
+		
+		Set<CommentDto> commentDtos = post.getComments()
+                .stream()
+                .map(comment -> this.modelMapper.map(comment, CommentDto.class))
+                .collect(Collectors.toSet());
+		
+		postDto.setComment(commentDtos);
 		
 		return postDto;
 	}

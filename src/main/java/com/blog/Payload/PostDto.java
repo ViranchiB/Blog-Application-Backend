@@ -1,6 +1,10 @@
 package com.blog.Payload;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,5 +25,7 @@ public class PostDto {
 	// Helps at the time of fetch data User and category is also attached with JSON response.
 	private UserDto user;
 	private CategoryDto category;
+	
+	private Set<CommentDto> comment;
 	
 }

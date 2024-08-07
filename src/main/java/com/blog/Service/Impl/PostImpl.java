@@ -69,9 +69,8 @@ public class PostImpl implements PostService{
 		Post postById = postRepository.findById(postId).orElseThrow(()-> new ResourceNotFoundException("Post not found along with the ID ", postId));
 		
 		// 2. Convert Entity to DTO and return		
-//		return this.postTOpostDto(postById);
-		
-		return this.modelMapper.map(postById, PostDto.class);
+		return this.postTOpostDto(postById);
+
 	}
 
 	@Override
